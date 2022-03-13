@@ -1,0 +1,178 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+
+    <title>/vtwbg/ Map Viewer</title>
+
+    <style>
+      body {
+        font-size: 15px;
+        background-color: lightgray;
+      }
+
+      h1 {
+        font-size: 30px;
+        margin-left: 50px;
+      }
+
+      img {
+        width: 50%;
+        display: none;
+      }
+
+      p {
+        margin-top: .5em;
+        margin-bottom: .5em;
+        margin-left: 50px;
+      }
+
+      .wrapper {
+        overflow-x: auto;
+        white-space: nowrap;
+        width: 50%;
+      }
+
+      .z1{z-index:1;position:absolute;}
+      .z2{z-index:2;position:absolute;}
+      .z3{z-index:3;position:absolute;}
+      .z4{z-index:4;position:absolute;}
+      .z5{z-index:5;position:absolute;}
+      .z6{z-index:6;position:absolute;}
+
+    </style>
+
+    <script>
+        function full() {
+            document.getElementById("top").style.display="block";
+            document.getElementById("blank").style.display="";
+            document.getElementById("flat").style.display="";
+            document.getElementById("color").style.display="";
+            document.getElementById("top2").style.display="block";
+            document.getElementById("blank2").style.display="";
+            document.getElementById("flat2").style.display="";
+            document.getElementById("color2").style.display="";
+        }
+    </script>
+
+    <script>
+        function simple() {
+            document.getElementById("top").style.display="";
+            document.getElementById("blank").style.display="block";
+            document.getElementById("flat").style.display="";
+            document.getElementById("color").style.display="";
+            document.getElementById("top2").style.display="";
+            document.getElementById("blank2").style.display="block";
+            document.getElementById("flat2").style.display="";
+            document.getElementById("color2").style.display="";
+        }
+    </script>
+
+    <script>
+        function off() {
+            document.getElementById("top").style.display="";
+            document.getElementById("blank").style.display="block";
+            document.getElementById("flat").style.display="block";
+            document.getElementById("color").style.display="";
+            document.getElementById("top2").style.display="";
+            document.getElementById("blank2").style.display="block";
+            document.getElementById("flat2").style.display="block";
+            document.getElementById("color2").style.display="";
+        }
+    </script>
+
+    <script>
+        function color() {
+            document.getElementById("top").style.display="";
+            document.getElementById("blank").style.display="block";
+            document.getElementById("flat").style.display="";
+            document.getElementById("color").style.display="block";
+            document.getElementById("top2").style.display="";
+            document.getElementById("blank2").style.display="block";
+            document.getElementById("flat2").style.display="";
+            document.getElementById("color2").style.display="block";
+        }
+    </script>
+
+    <script>
+        function bon() {
+            document.getElementById("border").style.display="block";
+            document.getElementById("border2").style.display="block";
+        }
+      </script>
+
+        <script>
+            function boff() {
+                document.getElementById("border").style.display="";
+                document.getElementById("border2").style.display="";
+            }
+        </script>
+
+        <script>
+            function lon() {
+                document.getElementById("label").style.display="block";
+                document.getElementById("label2").style.display="block";
+            }
+        </script>
+
+        <script>
+            function loff() {
+                document.getElementById("label").style.display="";
+                document.getElementById("label2").style.display="";
+            }
+        </script>
+
+        <script>
+            function won() {
+                document.getElementById("left").style.marginLeft="0px";
+                document.getElementById("right").style.display="block";
+            }
+        </script>
+
+        <script>
+            function woff() {
+                document.getElementById("left").style.marginLeft="50px";
+                document.getElementById("right").style.display="none";
+            }
+        </script>
+
+  </head>
+
+  <body>
+    <h1>/vtwbg/ Map Viewer</h1>
+
+<p>Terrain:</p>
+  <button onclick="full()" style="margin-left: 50px">Full</button>
+  <button onclick="simple()">Simple</button>
+  <button onclick="off()">None</button>
+  <button onclick="color()">Color</button>
+  <p>Borders:</p>
+    <button onclick="bon()" style="margin-left: 50px">On</button>
+    <button onclick="boff()">Off</button>
+  <p>Labels:</p>
+    <button onclick="lon()" style="margin-left: 50px">On</button>
+    <button onclick="loff()">Off</button>
+  <p>Wrapping:</p>
+    <button onclick="won()" style="margin-left: 50px">On</button>
+    <button onclick="woff()">Off</button>
+<br><br>
+<div class="wrapper">
+  <div id="left" style="float:left;margin-left:50px">
+    <img class="z1" id="top" src="base.png"/>
+    <img class="z2" id="blank" src="land.png"/>
+    <img class="z3" id="flat" src="flat.png"/>
+    <img class="z4" id="color" src="colors.png"/>
+    <img class="z5" id="border" src="borders.png"/>
+    <img class="z6" id="label" src="labels.png"/>
+  </div>
+  <div id="right" style="float:right;display:none">
+    <img class="z1" id="top2" src="base.png"/>
+    <img class="z2" id="blank2" src="land.png"/>
+    <img class="z3" id="flat2" src="flat.png"/>
+    <img class="z4" id="color2" src="colors.png"/>
+    <img class="z5" id="border2" src="borders.png"/>
+    <img class="z6" id="label2" src="labels.png"/>
+  </div>
+</div>
+  </body>
+</html>
