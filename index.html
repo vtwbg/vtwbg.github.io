@@ -155,8 +155,36 @@
   <p>Wrapping:</p>
     <button onclick="won()" style="margin-left: 50px">On</button>
     <button onclick="woff()">Off</button>
+  <p>Zoom</p>
+    <button id="plus" style="margin-left: 50px">+</button>
+    <button id="minus">-</button>
+    <button id="reset">Reset</button>
+
+  <script>
+    var curr=50;
+    var layers=["maps","top","blank","flat","color","border","label","top2","blank2","flat2","color2","border2","label2"];
+    function update(){
+      layers.forEach(function(i){
+        document.getElementById(i).style.width=curr+"%";
+      })
+    }
+    document.getElementById("plus").addEventListener("click",function(){
+      curr+=10;
+      update();
+    })
+    document.getElementById("minus").addEventListener("click",function(){
+      curr-=10;
+      update();
+    })
+    document.getElementById("reset").addEventListener("click",function(){
+      curr=50;
+      update();
+    })
+  </script>
+
 <br><br>
-<div class="wrapper">
+
+<div class="wrapper" id="maps">
   <div id="left" style="float:left;margin-left:50px">
     <img class="z1" id="top" src="base.png"/>
     <img class="z2" id="blank" src="land.png"/>
