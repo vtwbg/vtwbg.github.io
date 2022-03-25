@@ -136,6 +136,36 @@
             }
         </script>
 
+        <script>
+          function save() {
+            var layers=["top","blank","flat","color","border","label"];
+            var wrap=document.getElementById("right").style.display=="block";
+            if (wrap){
+              var pic=document.getElementById("double");
+            }
+            else{
+              var pic=document.getElementById("single");
+            }
+            layers.forEach(function(i){
+              if (document.getElementById(i).style.display=="block"){
+                pic.getContext("2d").drawImage(document.getElementById(i),0,0);
+              }
+            })
+            if (wrap){
+              layers.forEach(function(i){
+                if (document.getElementById(i+"2").style.display=="block"){
+                  pic.getContext("2d").drawImage(document.getElementById(i),6000,0);
+                }
+              })
+            }
+            var image = document.createElement("a");
+            image.setAttribute("href", pic.toDataURL());
+            image.setAttribute("download","map.png");
+            image.click();
+            image.remove();
+          }
+        </script>
+
   </head>
 
   <body>
@@ -159,6 +189,8 @@
     <button id="plus" style="margin-left: 50px">+</button>
     <button id="minus">-</button>
     <button id="reset">Reset</button>
+  <p>Download</p>
+    <button onclick="save()" style="margin-left: 50px">Download</button>
 
   <script>
     var curr=50;
@@ -185,6 +217,8 @@
 <br><br>
 
 <div class="wrapper" id="maps">
+  <canvas id="single" height="3000px" width="6000px" style="display:none"></canvas>
+  <canvas id="double" height="3000px" width="12000px" style="display:none"></canvas>
   <div id="left" style="float:left;margin-left:50px">
     <img class="z1" id="top" src="base.png"/>
     <img class="z2" id="blank" src="land.png"/>
