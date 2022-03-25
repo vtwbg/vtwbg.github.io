@@ -95,44 +95,18 @@
     </script>
 
     <script>
-        function bon() {
-            document.getElementById("border").style.display="block";
-            document.getElementById("border2").style.display="block";
+        function toggle(id) {
+          var active=document.getElementById(id).style.display!="block";
+          document.getElementById(id).style.display="block".repeat(active);
+          document.getElementById(id+"2").style.display="block".repeat(active);
         }
       </script>
 
         <script>
-            function boff() {
-                document.getElementById("border").style.display="";
-                document.getElementById("border2").style.display="";
-            }
-        </script>
-
-        <script>
-            function lon() {
-                document.getElementById("label").style.display="block";
-                document.getElementById("label2").style.display="block";
-            }
-        </script>
-
-        <script>
-            function loff() {
-                document.getElementById("label").style.display="";
-                document.getElementById("label2").style.display="";
-            }
-        </script>
-
-        <script>
-            function won() {
-                document.getElementById("left").style.marginLeft="0px";
-                document.getElementById("right").style.display="block";
-            }
-        </script>
-
-        <script>
-            function woff() {
-                document.getElementById("left").style.marginLeft="50px";
-                document.getElementById("right").style.display="none";
+            function wrap() {
+              var active=document.getElementById("right").style.display=="none";
+              document.getElementById("left").style.marginLeft=50*(1-active)+"px";
+              document.getElementById("right").style.display=["block","none"][1-active];
             }
         </script>
 
@@ -176,20 +150,15 @@
   <button onclick="simple()">Simple</button>
   <button onclick="off()">None</button>
   <button onclick="color()">Color</button>
-  <p>Borders:</p>
-    <button onclick="bon()" style="margin-left: 50px">On</button>
-    <button onclick="boff()">Off</button>
-  <p>Labels:</p>
-    <button onclick="lon()" style="margin-left: 50px">On</button>
-    <button onclick="loff()">Off</button>
-  <p>Wrapping:</p>
-    <button onclick="won()" style="margin-left: 50px">On</button>
-    <button onclick="woff()">Off</button>
-  <p>Zoom</p>
+  <p>Toggles:</p>
+    <button onclick="toggle('border')" style="margin-left: 50px">Borders</button>
+    <button onclick="toggle('label')">Labels</button>
+    <button onclick="wrap()">Wrap</button>
+  <p>Zoom:</p>
     <button id="plus" style="margin-left: 50px">+</button>
     <button id="minus">-</button>
     <button id="reset">Reset</button>
-  <p>Download</p>
+  <p>Tools:</p>
     <button onclick="save()" style="margin-left: 50px">Download</button>
 
   <script>
