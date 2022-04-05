@@ -39,6 +39,7 @@
       .z4{z-index:4;position:absolute;}
       .z5{z-index:5;position:absolute;}
       .z6{z-index:6;position:absolute;}
+      .z7{z-index:7;position:absolute;}
 
     </style>
 
@@ -112,7 +113,7 @@
 
         <script>
           function save() {
-            var layers=["top","blank","flat","color","border","label"];
+            var layers=["top","blank","flat","color","border","grid","label"];
             var wrap=document.getElementById("right").style.display=="block";
             if (wrap){
               var pic=document.getElementById("double");
@@ -152,6 +153,7 @@
   <button onclick="color()">Color</button>
   <p>Toggles:</p>
     <button onclick="toggle('border')" style="margin-left: 50px">Borders</button>
+    <button onclick="toggle('grid')">Grid</button>
     <button onclick="toggle('label')">Labels</button>
     <button onclick="wrap()">Wrap</button>
   <p>Zoom:</p>
@@ -163,7 +165,7 @@
 
   <script>
     var curr=50;
-    var layers=["maps","top","blank","flat","color","border","label","top2","blank2","flat2","color2","border2","label2"];
+    var layers=["maps","top","blank","flat","color","border","grid","label","top2","blank2","flat2","color2","border2","grid2","label2"];
     function update(){
       layers.forEach(function(i){
         document.getElementById(i).style.width=curr+"%";
@@ -194,7 +196,8 @@
     <img class="z3" id="flat" src="flat.png"/>
     <img class="z4" id="color" src="colors.png"/>
     <img class="z5" id="border" src="borders.png"/>
-    <img class="z6" id="label" src="labels.png"/>
+    <img class="z6" id="grid" src="grid.png"/>
+    <img class="z7" id="label" src="labels.png"/>
   </div>
   <div id="right" style="float:right;display:none">
     <img class="z1" id="top2" src="base.png"/>
@@ -202,7 +205,8 @@
     <img class="z3" id="flat2" src="flat.png"/>
     <img class="z4" id="color2" src="colors.png"/>
     <img class="z5" id="border2" src="borders.png"/>
-    <img class="z6" id="label2" src="labels.png"/>
+    <img class="z6" id="grid2" src="grid.png"/>
+    <img class="z7" id="label2" src="labels.png"/>
   </div>
 </div>
   </body>
