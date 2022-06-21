@@ -41,6 +41,7 @@
       .z6{z-index:6;position:absolute;}
       .z7{z-index:7;position:absolute;}
       .z8{z-index:8;position:absolute;}
+      .z9{z-index:9;position:absolute;}
 
     </style>
 
@@ -50,10 +51,13 @@
             document.getElementById("blank").style.display="";
             document.getElementById("flat").style.display="";
             document.getElementById("color").style.display="";
+            document.getElementById("climate").style.display="";
             document.getElementById("top2").style.display="block";
             document.getElementById("blank2").style.display="";
             document.getElementById("flat2").style.display="";
             document.getElementById("color2").style.display="";
+            document.getElementById("climate2").style.display="";
+            document.getElementById("key").style.display="";
         }
     </script>
 
@@ -63,10 +67,13 @@
             document.getElementById("blank").style.display="block";
             document.getElementById("flat").style.display="";
             document.getElementById("color").style.display="";
+            document.getElementById("climate").style.display="";
             document.getElementById("top2").style.display="";
             document.getElementById("blank2").style.display="block";
             document.getElementById("flat2").style.display="";
             document.getElementById("color2").style.display="";
+            document.getElementById("climate2").style.display="";
+            document.getElementById("key").style.display="";
         }
     </script>
 
@@ -76,10 +83,13 @@
             document.getElementById("blank").style.display="block";
             document.getElementById("flat").style.display="block";
             document.getElementById("color").style.display="";
+            document.getElementById("climate").style.display="";
             document.getElementById("top2").style.display="";
             document.getElementById("blank2").style.display="block";
             document.getElementById("flat2").style.display="block";
             document.getElementById("color2").style.display="";
+            document.getElementById("climate2").style.display="";
+            document.getElementById("key").style.display="";
         }
     </script>
 
@@ -89,10 +99,29 @@
             document.getElementById("blank").style.display="block";
             document.getElementById("flat").style.display="";
             document.getElementById("color").style.display="block";
+            document.getElementById("climate").style.display="";
             document.getElementById("top2").style.display="";
             document.getElementById("blank2").style.display="block";
             document.getElementById("flat2").style.display="";
             document.getElementById("color2").style.display="block";
+            document.getElementById("climate2").style.display="";
+            document.getElementById("key").style.display="";
+        }
+    </script>
+
+    <script>
+        function climate() {
+            document.getElementById("top").style.display="";
+            document.getElementById("blank").style.display="block";
+            document.getElementById("flat").style.display="";
+            document.getElementById("color").style.display="";
+            document.getElementById("climate").style.display="block";
+            document.getElementById("top2").style.display="";
+            document.getElementById("blank2").style.display="block";
+            document.getElementById("flat2").style.display="";
+            document.getElementById("color2").style.display="";
+            document.getElementById("climate2").style.display="block";
+            document.getElementById("key").style.display="block";
         }
     </script>
 
@@ -114,7 +143,7 @@
 
         <script>
           function save() {
-            var layers=["top","blank","flat","color","border","grid","label"];
+            var layers=["top","blank","flat","color","climate","border","grid","label"];
             var wrap=document.getElementById("right").style.display=="block";
             if (wrap){
               var pic=document.getElementById("double");
@@ -145,13 +174,16 @@
   </head>
 
   <body>
-    <h1>/vtwbg/ Map Viewer</h1>
 
-<p>Terrain:</p>
-  <button onclick="full()" style="margin-left: 50px">Full</button>
-  <button onclick="simple()">Simple</button>
-  <button onclick="off()">None</button>
-  <button onclick="color()">Color</button>
+<div style="float:left">
+  <h1>/vtwbg/ Map Viewer</h1>
+
+  <p>Style:</p>
+    <button onclick="full()" style="margin-left: 50px">Height</button>
+    <button onclick="simple()">Simple</button>
+    <button onclick="off()">Mono</button>
+    <button onclick="color()">Color</button>
+    <button onclick="climate()">Climate</button>
   <p>Toggles:</p>
     <button onclick="toggle('border')" style="margin-left: 50px">Borders</button>
     <button onclick="toggle('grid')">Grid</button>
@@ -166,15 +198,17 @@
     <input id="dist" type="text" readonly="True" placeholder="click to set waypoints">
     <button id="area">Area</button>
     <button id="clear">Clear</button>
+</div>
+
+<img id="key" src="key.png" style="width:25%;float:left;margin-left:40px;margin-top:100px"/>
 
   <script>
     var curr=50;
-    var layers=["maps","top","blank","flat","color","border","grid","label","top2","blank2","flat2","color2","border2","grid2","label2"];
+    var layers=["maps","top","blank","flat","color","climate","border","grid","label","top2","blank2","flat2","color2","climate2","border2","grid2","label2"];
     function update(){
       layers.forEach(function(i){
         document.getElementById(i).style.width=curr+"%";
       })
-      document.getElementById("clear").click();
       document.getElementById("lines").getContext("2d").canvas.width=window.innerWidth*curr/100;
       document.getElementById("lines").getContext("2d").canvas.height=window.innerWidth*curr/200;
       document.getElementById("lines2").getContext("2d").canvas.width=window.innerWidth*curr/100;
@@ -197,9 +231,8 @@
     })
   </script>
 
-<br><br>
-
-<div class="wrapper" id="maps">
+<div class="wrapper" id="maps" style="clear:both">
+  <br><br>
   <canvas id="single" height="3000px" width="6000px" style="display:none"></canvas>
   <canvas id="double" height="3000px" width="12000px" style="display:none"></canvas>
   <div id="left" style="float:left;margin-left:50px">
@@ -207,20 +240,22 @@
     <img class="z2" id="blank" src="land.png"/>
     <img class="z3" id="flat" src="flat.png"/>
     <img class="z4" id="color" src="colors.png"/>
-    <img class="z5" id="border" src="borders.png"/>
-    <img class="z6" id="grid" src="grid.png"/>
-    <img class="z7" id="label" src="labels.png"/>
-    <canvas class="z8" id="lines"></canvas>
+    <img class="z5" id="climate" src="climate.png"/>
+    <img class="z6" id="border" src="borders.png"/>
+    <img class="z7" id="grid" src="grid.png"/>
+    <img class="z8" id="label" src="labels.png"/>
+    <canvas class="z9" id="lines"></canvas>
   </div>
   <div id="right" style="float:right;display:none">
     <img class="z1" id="top2" src="base.png"/>
     <img class="z2" id="blank2" src="land.png"/>
     <img class="z3" id="flat2" src="flat.png"/>
     <img class="z4" id="color2" src="colors.png"/>
-    <img class="z5" id="border2" src="borders.png"/>
-    <img class="z6" id="grid2" src="grid.png"/>
-    <img class="z7" id="label2" src="labels.png"/>
-    <canvas class="z8" id="lines2"></canvas>
+    <img class="z5" id="climate2" src="climate.png"/>
+    <img class="z6" id="border2" src="borders.png"/>
+    <img class="z7" id="grid2" src="grid.png"/>
+    <img class="z8" id="label2" src="labels.png"/>
+    <canvas class="z9" id="lines2"></canvas>
   </div>
 </div>
 
