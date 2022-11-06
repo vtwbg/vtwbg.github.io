@@ -132,6 +132,12 @@
     </script>
 
     <script>
+      function blind() {
+        document.getElementById("climate").src="layers/"+["colorblind.jpg","climate.png"][1-document.getElementById("check").checked];
+      }
+    </script>
+
+    <script>
         function toggle(id) {
           var active=document.getElementById(id).style.display!="block";
           document.getElementById(id).style.display="block".repeat(active);
@@ -189,7 +195,7 @@
     <button onclick="simple()">Simple</button>
     <button onclick="off()">Mono</button>
     <button onclick="color()">Color</button>
-    <button onclick="climate()">Climate</button>
+    <button onclick="climate()">Climate<input type="checkbox" id="check" onclick="blind()" title="Colorblind Mode"></input></button>
   <p>Toggles:</p>
     <button onclick="toggle('border')" style="margin-left: 50px">Borders</button>
     <button onclick="toggle('grid')">Grid</button>
