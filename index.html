@@ -216,7 +216,7 @@
 
 <img id="key" src="key.png" style="width:25%;float:left;margin-left:40px;margin-top:100px"/>
 <img id="legend" src="legend.png" style="width:25%;float:left;margin-left:40px;margin-top:100px"/>
-<img id="holiday" src="halloween/tortureroom.jpg" style="width:20%;float:right;margin-right:40px;margin-top:40px"/>
+<img id="holiday" src="halloween/tortureroom.jpg" style="float:right;margin-right:40px;margin-top:40px"/>
 
   <script>
     var curr=50;
@@ -336,10 +336,26 @@ if (date.getMonth()==9 && date.getDate()==31){
   document.getElementById("dist").placeholder="BOO!";
   document.body.style.backgroundColor="orange";
   document.getElementById("holiday").src="halloween/"+octart[Math.floor(Math.random()*5)]+".jpg";
+  document.getElementById("holiday").style.width="20%";
   document.getElementById("holiday").style.display="block";
   var play=function(){
     document.removeEventListener("mousedown",play,false);
     document.getElementById("bgm").src="halloween/"+octsong[Math.floor(Math.random()*5)]+".mp3";
+    document.getElementById("bgm").play();
+  }
+  document.addEventListener("mousedown",play,false);
+}
+if (date.getMonth()==11 && date.getDate()==25){
+  var decart=["alice.jpg","eggnog.png","kfp.png","spin.gif","tree.png"];
+  var decsong=["ame","nyan","padoru","riri","uto"];
+  document.getElementById("dist").placeholder="HO HO HO!"
+  document.body.style.backgroundImage="url('christmas/snow.gif')";
+  document.getElementById("holiday").src="christmas/"+decart[Math.floor(Math.random()*5)];
+  document.getElementById("holiday").style.width="15%";
+  document.getElementById("holiday").style.display="block";
+  var play=function(){
+    document.removeEventListener("mousedown",play,false);
+    document.getElementById("bgm").src="christmas/"+decsong[Math.floor(Math.random()*5)]+".mp3";
     document.getElementById("bgm").play();
   }
   document.addEventListener("mousedown",play,false);
