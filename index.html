@@ -43,6 +43,7 @@
       .z7{z-index:7;position:absolute;}
       .z8{z-index:8;position:absolute;}
       .z9{z-index:9;position:absolute;}
+      .z10{z-index:10;position:absolute;}
 
     </style>
 
@@ -146,6 +147,31 @@
         }
       </script>
 
+      <script>
+        function borders() {
+          toggle("border");
+          if (document.getElementById("check2").checked){
+            toggle("province");
+          }
+        }
+      </script>
+
+      <script>
+        function provinces() {
+          if (document.getElementById("check2").checked){
+            document.getElementById("border").style.display="block";
+            document.getElementById("border2").style.display="block";
+            document.getElementById("province").style.display="block";
+            document.getElementById("province2").style.display="block";
+          }
+          else {
+            document.getElementById("province").style.display="";
+            document.getElementById("province2").style.display="";
+          }
+          borders();
+        }
+      </script>
+
         <script>
             function wrap() {
               var active=document.getElementById("right").style.display=="none";
@@ -156,7 +182,7 @@
 
         <script>
           function save() {
-            var layers=["top","blank","flat","color","climate","border","grid","label"];
+            var layers=["top","blank","flat","color","climate","border","province","grid","label"];
             var wrap=document.getElementById("right").style.display=="block";
             if (wrap){
               var pic=document.getElementById("double");
@@ -198,7 +224,7 @@
     <button onclick="color()">Color</button>
     <button onclick="climate()">Climate<input type="checkbox" id="check" onclick="blind()" title="Colorblind Mode"></input></button>
   <p>Toggles:</p>
-    <button onclick="toggle('border')" style="margin-left: 50px">Borders</button>
+    <button onclick="borders()" style="margin-left: 50px">Borders<input type="checkbox" id="check2" onclick="provinces()" title="Province Borders"></input></button>
     <button onclick="toggle('grid')">Grid</button>
     <button onclick="toggle('label')">Labels</button>
     <button onclick="wrap()">Wrap</button>
@@ -220,7 +246,7 @@
 
   <script>
     var curr=50;
-    var layers=["maps","top","blank","flat","color","climate","border","grid","label","top2","blank2","flat2","color2","climate2","border2","grid2","label2"];
+    var layers=["maps","top","blank","flat","color","climate","border","province","grid","label","top2","blank2","flat2","color2","climate2","border2","province2","grid2","label2"];
     function update(){
       layers.forEach(function(i){
         document.getElementById(i).style.width=curr+"%";
@@ -258,9 +284,10 @@
     <img class="z4" id="color" src="layers/colors.png"/>
     <img class="z5" id="climate" src="layers/climate.png"/>
     <img class="z6" id="border" src="layers/borders.png"/>
-    <img class="z7" id="grid" src="layers/grid.png"/>
-    <img class="z8" id="label" src="layers/labels.png"/>
-    <canvas class="z9" id="lines"></canvas>
+    <img class="z7" id="province" src="layers/provinces.png"/>
+    <img class="z8" id="grid" src="layers/grid.png"/>
+    <img class="z9" id="label" src="layers/labels.png"/>
+    <canvas class="z10" id="lines"></canvas>
   </div>
   <div id="right" style="float:right;display:none">
     <img class="z1" id="top2" src="layers/base.png"/>
@@ -269,9 +296,10 @@
     <img class="z4" id="color2" src="layers/colors.png"/>
     <img class="z5" id="climate2" src="layers/climate.png"/>
     <img class="z6" id="border2" src="layers/borders.png"/>
-    <img class="z7" id="grid2" src="layers/grid.png"/>
-    <img class="z8" id="label2" src="layers/labels.png"/>
-    <canvas class="z9" id="lines2"></canvas>
+    <img class="z7" id="province2" src="layers/provinces.png"/>
+    <img class="z8" id="grid2" src="layers/grid.png"/>
+    <img class="z9" id="label2" src="layers/labels.png"/>
+    <canvas class="z10" id="lines2"></canvas>
   </div>
 </div>
 
