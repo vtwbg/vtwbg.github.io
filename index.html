@@ -28,10 +28,19 @@
         margin-left: 50px;
       }
 
+      input[type=checkbox] {
+        margin-top: -1px;
+        margin-bottom: 0px;
+        margin-right: 0px;
+        vertical-align: middle;
+
+      }
+
       .wrapper {
         overflow-x: auto;
         white-space: nowrap;
         width: 50%;
+        font-size: 5px;
       }
 
       .z1{z-index:1;position:absolute;}
@@ -181,6 +190,22 @@
         </script>
 
         <script>
+          function names(filename) {
+            var name=document.getElementById("label");
+            var name2=document.getElementById("label2");
+            if (name.src.match(filename)){
+              toggle("label");
+            }
+            else{
+              name.src="layers/"+filename+".png";
+              name2.src="layers/"+filename+".png";
+              name.style.display="block";
+              name2.style.display="block";
+            }
+          }
+        </script>
+
+        <script>
           function save() {
             var layers=["top","blank","flat","color","climate","border","province","grid","label"];
             var wrap=document.getElementById("right").style.display=="block";
@@ -226,8 +251,10 @@
   <p>Toggles:</p>
     <button onclick="borders()" style="margin-left: 50px">Borders<input type="checkbox" id="check2" onclick="provinces()" title="Province Borders"></input></button>
     <button onclick="toggle('grid')">Grid</button>
-    <button onclick="toggle('label')">Labels</button>
     <button onclick="wrap()">Wrap</button>
+  <p>Labels</p>
+    <button onclick="names('labels')" style="margin-left: 50px">Threads</button>
+    <button onclick="names('nations')">Nations</button>
   <p>Zoom:</p>
     <button id="plus" style="margin-left: 50px">+</button>
     <button id="minus">-</button>
