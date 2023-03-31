@@ -143,8 +143,8 @@
 
     <script>
       function blind() {
-        document.getElementById("climate").src="layers/"+["colorblind","climate"][1-document.getElementById("check").checked]+".png";
-        document.getElementById("climate2").src="layers/"+["colorblind","climate"][1-document.getElementById("check").checked]+".png";
+        document.getElementById("climate").src=loc+["colorblind","climate"][1-document.getElementById("check").checked]+".png";
+        document.getElementById("climate2").src=loc+["colorblind","climate"][1-document.getElementById("check").checked]+".png";
       }
     </script>
 
@@ -197,8 +197,8 @@
               toggle("label");
             }
             else{
-              name.src="layers/"+filename+".png";
-              name2.src="layers/"+filename+".png";
+              name.src=loc+filename+".png";
+              name2.src=loc+filename+".png";
               name.style.display="block";
               name2.style.display="block";
             }
@@ -331,6 +331,7 @@
 </div>
 
 <script>
+loc="layers/";
 var prevX=500;
 var prevY=500;
 var origX=0;
@@ -442,6 +443,16 @@ if (date.getMonth()==1 && date.getDate()==14){
   for (let i=0; i<10; i++){
     document.getElementById(layers[i]).src="valentine/layers/"+files[i]+".png";
     document.getElementById(layers[i]+"2").src="valentine/layers/"+files[i]+".png";
+  }
+}
+if (date.getMonth()==3 && date.getDate()==1){
+  var layers=["top","blank","flat","color","climate","border","province","grid","label"];
+  var files=["base","land","flat","colors","climate","borders","provinces","grid","labels"];
+  document.getElementById("dist").placeholder=":^)";
+  loc="fools/";
+  for (let i=0; i<8; i++){
+    document.getElementById(layers[i]).src="fools/"+files[i]+".png";
+    document.getElementById(layers[i]+"2").src="fools/"+files[i]+".png";
   }
 }
 </script>
