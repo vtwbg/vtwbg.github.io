@@ -440,9 +440,10 @@ if (date.getMonth()==1 && date.getDate()==14){
     document.getElementById("bgm").play();
   }
   document.addEventListener("mousedown",play,false);
+  loc="valentine/layers/";
   for (let i=0; i<10; i++){
-    document.getElementById(layers[i]).src="valentine/layers/"+files[i]+".png";
-    document.getElementById(layers[i]+"2").src="valentine/layers/"+files[i]+".png";
+    document.getElementById(layers[i]).src=loc+files[i]+".png";
+    document.getElementById(layers[i]+"2").src=loc+files[i]+".png";
   }
 }
 if (date.getMonth()==3 && date.getDate()==1){
@@ -450,9 +451,9 @@ if (date.getMonth()==3 && date.getDate()==1){
   var files=["base","land","flat","colors","climate","borders","provinces","grid","labels"];
   document.getElementById("dist").placeholder=":^)";
   loc="fools/";
-  for (let i=0; i<8; i++){
-    document.getElementById(layers[i]).src="fools/"+files[i]+".png";
-    document.getElementById(layers[i]+"2").src="fools/"+files[i]+".png";
+  for (let i=0; i<9; i++){
+    document.getElementById(layers[i]).src=loc+files[i]+".png";
+    document.getElementById(layers[i]+"2").src=loc+files[i]+".png";
   }
 }
 </script>
