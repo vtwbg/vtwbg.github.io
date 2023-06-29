@@ -59,49 +59,32 @@
     <script>
         function full() {
             document.getElementById("top").style.display="block";
-            document.getElementById("blank").style.display="";
             document.getElementById("flat").style.display="";
             document.getElementById("color").style.display="";
-            document.getElementById("climate").style.display="";
+            document.getElementById("wclimate").style.display="";
+            document.getElementById("cclimate").style.display="";
             document.getElementById("top2").style.display="block";
-            document.getElementById("blank2").style.display="";
             document.getElementById("flat2").style.display="";
             document.getElementById("color2").style.display="";
-            document.getElementById("climate2").style.display="";
+            document.getElementById("wclimate2").style.display="";
+            document.getElementById("cclimate2").style.display="";
             document.getElementById("key").style.display="";
             document.getElementById("legend").style.display="block";
         }
     </script>
 
     <script>
-        function simple() {
-            document.getElementById("top").style.display="";
-            document.getElementById("blank").style.display="block";
-            document.getElementById("flat").style.display="";
-            document.getElementById("color").style.display="";
-            document.getElementById("climate").style.display="";
-            document.getElementById("top2").style.display="";
-            document.getElementById("blank2").style.display="block";
-            document.getElementById("flat2").style.display="";
-            document.getElementById("color2").style.display="";
-            document.getElementById("climate2").style.display="";
-            document.getElementById("key").style.display="";
-            document.getElementById("legend").style.display="";
-        }
-    </script>
-
-    <script>
         function off() {
-            document.getElementById("top").style.display="";
-            document.getElementById("blank").style.display="block";
+            document.getElementById("top").style.display="block";
             document.getElementById("flat").style.display="block";
             document.getElementById("color").style.display="";
-            document.getElementById("climate").style.display="";
-            document.getElementById("top2").style.display="";
-            document.getElementById("blank2").style.display="block";
+            document.getElementById("wclimate").style.display="";
+            document.getElementById("cclimate").style.display="";
+            document.getElementById("top2").style.display="block";
             document.getElementById("flat2").style.display="block";
             document.getElementById("color2").style.display="";
-            document.getElementById("climate2").style.display="";
+            document.getElementById("wclimate2").style.display="";
+            document.getElementById("cclimate2").style.display="";
             document.getElementById("key").style.display="";
             document.getElementById("legend").style.display="";
         }
@@ -109,42 +92,59 @@
 
     <script>
         function color() {
-            document.getElementById("top").style.display="";
-            document.getElementById("blank").style.display="block";
+            document.getElementById("top").style.display="block";
             document.getElementById("flat").style.display="";
             document.getElementById("color").style.display="block";
-            document.getElementById("climate").style.display="";
-            document.getElementById("top2").style.display="";
-            document.getElementById("blank2").style.display="block";
+            document.getElementById("wclimate").style.display="";
+            document.getElementById("cclimate").style.display="";
+            document.getElementById("top2").style.display="block";
             document.getElementById("flat2").style.display="";
             document.getElementById("color2").style.display="block";
-            document.getElementById("climate2").style.display="";
+            document.getElementById("wclimate2").style.display="";
+            document.getElementById("cclimate2").style.display="";
             document.getElementById("key").style.display="";
             document.getElementById("legend").style.display="";
         }
     </script>
 
     <script>
-        function climate() {
-            document.getElementById("top").style.display="";
-            document.getElementById("blank").style.display="block";
+        function climate1() {
+            document.getElementById("top").style.display="block";
             document.getElementById("flat").style.display="";
             document.getElementById("color").style.display="";
-            document.getElementById("climate").style.display="block";
-            document.getElementById("top2").style.display="";
-            document.getElementById("blank2").style.display="block";
+            document.getElementById("wclimate").style.display="block";
+            document.getElementById("cclimate").style.display="";
+            document.getElementById("top2").style.display="block";
             document.getElementById("flat2").style.display="";
             document.getElementById("color2").style.display="";
-            document.getElementById("climate2").style.display="block";
+            document.getElementById("wclimate2").style.display="block";
+            document.getElementById("cclimate2").style.display="";
             document.getElementById("key").style.display="block";
             document.getElementById("legend").style.display="";
         }
     </script>
 
     <script>
-      function blind() {
-        document.getElementById("climate").src=loc+["colorblind","climate"][1-document.getElementById("check").checked]+".png";
-        document.getElementById("climate2").src=loc+["colorblind","climate"][1-document.getElementById("check").checked]+".png";
+        function climate2() {
+            document.getElementById("top").style.display="block";
+            document.getElementById("flat").style.display="";
+            document.getElementById("color").style.display="";
+            document.getElementById("wclimate").style.display="";
+            document.getElementById("cclimate").style.display="block";
+            document.getElementById("top2").style.display="block";
+            document.getElementById("flat2").style.display="";
+            document.getElementById("color2").style.display="";
+            document.getElementById("wclimate2").style.display="";
+            document.getElementById("cclimate2").style.display="block";
+            document.getElementById("key").style.display="block";
+            document.getElementById("legend").style.display="";
+        }
+    </script>
+
+    <script>
+      function blind(id) {
+        document.getElementById(id+"climate").src=loc+id+["colorblind","climate"][1-document.getElementById(id+"check").checked]+".png";
+        document.getElementById(id+"climate2").src=loc+id+["colorblind","climate"][1-document.getElementById(id+"check").checked]+".png";
       }
     </script>
 
@@ -159,7 +159,7 @@
       <script>
         function borders() {
           toggle("border");
-          if (document.getElementById("check2").checked){
+          if (document.getElementById("check").checked){
             toggle("province");
           }
         }
@@ -167,7 +167,7 @@
 
       <script>
         function provinces() {
-          if (document.getElementById("check2").checked){
+          if (document.getElementById("check").checked){
             document.getElementById("border").style.display="block";
             document.getElementById("border2").style.display="block";
             document.getElementById("province").style.display="block";
@@ -207,7 +207,7 @@
 
         <script>
           function save() {
-            var layers=["top","blank","flat","color","climate","border","province","grid","label"];
+            var layers=["top","flat","color","wclimate","cclimate","border","province","grid","label"];
             var wrap=document.getElementById("right").style.display=="block";
             if (wrap){
               var pic=document.getElementById("double");
@@ -244,12 +244,12 @@
   <audio id="bgm" loop src="halloween/spowoky.mp3"></audio>
   <p>Style:</p>
     <button onclick="full()" style="margin-left: 50px">Height</button>
-    <button onclick="simple()">Simple</button>
     <button onclick="off()">Mono</button>
     <button onclick="color()">Color</button>
-    <button onclick="climate()">Climate<input type="checkbox" id="check" onclick="blind()" title="Colorblind Mode"></input></button>
+    <button onclick="climate1()">Warm Climate<input type="checkbox" id="wcheck" onclick="blind('w')" title="Colorblind Mode"></input></button>
+    <button onclick="climate2()">Cool Climate<input type="checkbox" id="ccheck" onclick="blind('c')" title="Colorblind Mode"></input></button>
   <p>Toggles:</p>
-    <button onclick="borders()" style="margin-left: 50px">Borders<input type="checkbox" id="check2" onclick="provinces()" title="Province Borders"></input></button>
+    <button onclick="borders()" style="margin-left: 50px">Borders<input type="checkbox" id="check" onclick="provinces()" title="Province Borders"></input></button>
     <button onclick="toggle('grid')">Grid</button>
     <button onclick="wrap()">Wrap</button>
   <p>Labels</p>
@@ -273,7 +273,7 @@
 
   <script>
     var curr=50;
-    var layers=["maps","top","blank","flat","color","climate","border","province","grid","label","top2","blank2","flat2","color2","climate2","border2","province2","grid2","label2"];
+    var layers=["maps","top","flat","color","wclimate","cclimate","border","province","grid","label","top2","flat2","color2","wclimate2","cclimate2","border2","province2","grid2","label2"];
     function update(){
       layers.forEach(function(i){
         document.getElementById(i).style.width=curr+"%";
@@ -306,10 +306,10 @@
   <canvas id="double" height="3000px" width="12000px" style="display:none"></canvas>
   <div id="left" style="float:left;margin-left:50px">
     <img class="z1" id="top" src="layers/base.png"/>
-    <img class="z2" id="blank" src="layers/land.png"/>
-    <img class="z3" id="flat" src="layers/flat.png"/>
-    <img class="z4" id="color" src="layers/colors.png"/>
-    <img class="z5" id="climate" src="layers/climate.png"/>
+    <img class="z2" id="flat" src="layers/flat.png"/>
+    <img class="z3" id="color" src="layers/colors.png"/>
+    <img class="z4" id="wclimate" src="layers/wclimate.png"/>
+    <img class="z5" id="cclimate" src="layers/cclimate.png"/>
     <img class="z6" id="border" src="layers/borders.png"/>
     <img class="z7" id="province" src="layers/provinces.png"/>
     <img class="z8" id="grid" src="layers/grid.png"/>
@@ -318,10 +318,10 @@
   </div>
   <div id="right" style="float:right;display:none">
     <img class="z1" id="top2" src="layers/base.png"/>
-    <img class="z2" id="blank2" src="layers/land.png"/>
-    <img class="z3" id="flat2" src="layers/flat.png"/>
-    <img class="z4" id="color2" src="layers/colors.png"/>
-    <img class="z5" id="climate2" src="layers/climate.png"/>
+    <img class="z2" id="flat2" src="layers/flat.png"/>
+    <img class="z3" id="color2" src="layers/colors.png"/>
+    <img class="z4" id="wclimate2" src="layers/wclimate.png"/>
+    <img class="z5" id="cclimate2" src="layers/cclimate.png"/>
     <img class="z6" id="border2" src="layers/borders.png"/>
     <img class="z7" id="province2" src="layers/provinces.png"/>
     <img class="z8" id="grid2" src="layers/grid.png"/>
