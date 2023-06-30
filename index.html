@@ -15,6 +15,7 @@
       h1 {
         font-size: 30px;
         margin-left: 50px;
+        margin-bottom: 10px;
       }
 
       img {
@@ -256,6 +257,7 @@
     <button onclick="names('labels')" style="margin-left: 50px">Threads</button>
     <button onclick="names('nations')">Nations</button>
   <p>Zoom:</p>
+    <input type="range" min="50" max="400" value="50" class="slider" id="zoomSlider" style="width: 90%; margin-left: 50px;"/>
     <button id="plus" style="margin-left: 50px">+</button>
     <button id="minus">-</button>
     <button id="reset">Reset</button>
@@ -282,7 +284,12 @@
       document.getElementById("lines").getContext("2d").canvas.height=window.innerWidth*curr/200;
       document.getElementById("lines2").getContext("2d").canvas.width=window.innerWidth*curr/100;
       document.getElementById("lines2").getContext("2d").canvas.height=window.innerWidth*curr/200;
+      document.getElementById("zoomSlider").value=curr;
     }
+    document.getElementById("zoomSlider").addEventListener("input",function(e){
+      curr=parseInt(e.target.value);
+      update();
+    })
     document.getElementById("plus").addEventListener("click",function(){
       curr+=10;
       update();
