@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+
+    <!--these are the text and image that appear on the tab of your browser-->
+    <title>/vre/ Habitat Map Demo</title>
+    <link rel="icon" href="vre.png">
+
+    <style>
+      body {
+        font-size: 15px;
+        background-color: lightgray;
+      }
+
+      h1 {
+        <!--this controls how the large text in <h1> tags looks-->
+        font-size: 30px;
+        margin-left: 50px;
+        margin-bottom: 10px;
+      }
+
+      p {
+        <!--this controls the spacing of text in <p> tags and the distance of the infobox border-->
+        margin-top: 1em;
+        margin-bottom: 1em;
+        margin-left: 1em;
+        margin-right: 1em;
+      }
+
+    </style>
+
+  </head>
+
+  <body>
+
+  <script>
+  var entries={
+    <!--this is a dictionary where you add the description of each clickable region-->
+    <!--format is label:"<p>description</p>", next entry-->
+    <!--<br> adds a line break, but the description still needs to be entered as one line-->
+    <!--the <a> tag lets you link back to your lore doc. Note that once your inside a set of "quotes" you need to use 'single quotes' for the link itself-->
+    blue: "<p>This is a blue... something?<br>I guess it's technically a <a href='https://en.wikipedia.org/wiki/File:Concave-hexagon.svg'>hexagon</a>.</p>",
+    triangle: "<p>This is a pink triangle!</p>",
+  }
+    function text(name){
+      document.getElementById("info").innerHTML=entries[name]
+    }
+  </script>
+
+<div style="float:top">
+  <!--this is the large text that appears at the top of the page-->
+  <h1>/vre/ Habitat Map Demo</h1>
+</div>
+
+<div id="image" style="float:left;margin-left:50px">
+  <!--you can change the src here to whatever image you want to be displayed-->
+  <img id="logo" src="vre.png" usemap="#map"/>
+  <map name="map">
+    <!--add new regions here and don't forget to add the extra title and onclick properties-->
+    <!--title is what shows up on hover, onclick calls the function that fills in the textbox when you click the region-->
+    <!--make sure whatever you place in the text('') part matches the label used in the dictionary-->
+    <!--to get the coordinates, try https://summerstyle.github.io/summer/ or https://www.image-map.net/-->
+    <area shape="poly" coords="112, 23, 112, 70, 202, 122, 110, 182, 114, 228, 286, 126" title="blue" onclick="text('blue')"/>
+    <area shape="poly" coords="20, 51, 21, 203, 148, 127" title="pink" onclick="text('triangle')"/>
+  </map>
+  <br>
+  <div id="info" style="border:thin solid black">
+    <!--this is the default text that is used for the info box-->
+    <p>
+      Hovering over a region will show you their names!<br>
+      Clicking on them will populate this box with more info!<br>
+      <br>
+      <br>
+      <br>
+      Give it a try!
+    </p>
+  </div>
+</div>
+
+  </body>
+</html>
