@@ -1,0 +1,468 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+
+    <title>Vitubia Map Viewer</title>
+    <link rel="icon" href="../vtwbgicon.png">
+
+    <style>
+      body {
+        font-size: 15px;
+        background-color: lightgray;
+      }
+
+      h1 {
+        font-size: 30px;
+        margin-left: 50px;
+        margin-bottom: 10px;
+      }
+
+      img {
+        width: 50%;
+        display: none;
+      }
+
+      p {
+        margin-top: .5em;
+        margin-bottom: .5em;
+        margin-left: 50px;
+      }
+
+      input[type=checkbox] {
+        margin-top: -1px;
+        margin-bottom: 0px;
+        margin-right: 0px;
+        vertical-align: middle;
+
+      }
+
+      .wrapper {
+        overflow-x: auto;
+        white-space: nowrap;
+        width: 50%;
+        font-size: 5px;
+      }
+
+      .z1{z-index:1;position:absolute;}
+      .z2{z-index:2;position:absolute;}
+      .z3{z-index:3;position:absolute;}
+      .z4{z-index:4;position:absolute;}
+      .z5{z-index:5;position:absolute;}
+      .z6{z-index:6;position:absolute;}
+      .z7{z-index:7;position:absolute;}
+      .z8{z-index:8;position:absolute;}
+      .z9{z-index:9;position:absolute;}
+      .z10{z-index:10;position:absolute;}
+
+    </style>
+
+    <script>
+        function full() {
+            document.getElementById("top").style.display="block";
+            document.getElementById("flat").style.display="";
+            document.getElementById("color").style.display="";
+            document.getElementById("wclimate").style.display="";
+            document.getElementById("cclimate").style.display="";
+            document.getElementById("top2").style.display="block";
+            document.getElementById("flat2").style.display="";
+            document.getElementById("color2").style.display="";
+            document.getElementById("wclimate2").style.display="";
+            document.getElementById("cclimate2").style.display="";
+            document.getElementById("key").style.display="";
+            document.getElementById("legend").style.display="block";
+        }
+    </script>
+
+    <script>
+        function off() {
+            document.getElementById("top").style.display="block";
+            document.getElementById("flat").style.display="block";
+            document.getElementById("color").style.display="";
+            document.getElementById("wclimate").style.display="";
+            document.getElementById("cclimate").style.display="";
+            document.getElementById("top2").style.display="block";
+            document.getElementById("flat2").style.display="block";
+            document.getElementById("color2").style.display="";
+            document.getElementById("wclimate2").style.display="";
+            document.getElementById("cclimate2").style.display="";
+            document.getElementById("key").style.display="";
+            document.getElementById("legend").style.display="";
+        }
+    </script>
+
+    <script>
+        function color() {
+            document.getElementById("top").style.display="block";
+            document.getElementById("flat").style.display="";
+            document.getElementById("color").style.display="block";
+            document.getElementById("wclimate").style.display="";
+            document.getElementById("cclimate").style.display="";
+            document.getElementById("top2").style.display="block";
+            document.getElementById("flat2").style.display="";
+            document.getElementById("color2").style.display="block";
+            document.getElementById("wclimate2").style.display="";
+            document.getElementById("cclimate2").style.display="";
+            document.getElementById("key").style.display="";
+            document.getElementById("legend").style.display="";
+        }
+    </script>
+
+    <script>
+        function climate1() {
+            document.getElementById("top").style.display="block";
+            document.getElementById("flat").style.display="";
+            document.getElementById("color").style.display="";
+            document.getElementById("wclimate").style.display="block";
+            document.getElementById("cclimate").style.display="";
+            document.getElementById("top2").style.display="block";
+            document.getElementById("flat2").style.display="";
+            document.getElementById("color2").style.display="";
+            document.getElementById("wclimate2").style.display="block";
+            document.getElementById("cclimate2").style.display="";
+            document.getElementById("key").style.display="block";
+            document.getElementById("legend").style.display="";
+        }
+    </script>
+
+    <script>
+        function climate2() {
+            document.getElementById("top").style.display="block";
+            document.getElementById("flat").style.display="";
+            document.getElementById("color").style.display="";
+            document.getElementById("wclimate").style.display="";
+            document.getElementById("cclimate").style.display="block";
+            document.getElementById("top2").style.display="block";
+            document.getElementById("flat2").style.display="";
+            document.getElementById("color2").style.display="";
+            document.getElementById("wclimate2").style.display="";
+            document.getElementById("cclimate2").style.display="block";
+            document.getElementById("key").style.display="block";
+            document.getElementById("legend").style.display="";
+        }
+    </script>
+
+    <script>
+      function blind(id) {
+        document.getElementById(id+"climate").src=loc+id+["colorblind","climate"][1-document.getElementById(id+"check").checked]+".png";
+        document.getElementById(id+"climate2").src=loc+id+["colorblind","climate"][1-document.getElementById(id+"check").checked]+".png";
+      }
+    </script>
+
+    <script>
+        function toggle(id) {
+          var active=document.getElementById(id).style.display!="block";
+          document.getElementById(id).style.display="block".repeat(active);
+          document.getElementById(id+"2").style.display="block".repeat(active);
+        }
+      </script>
+
+      <script>
+        function borders() {
+          toggle("border");
+          if (document.getElementById("check").checked){
+            toggle("province");
+          }
+        }
+      </script>
+
+      <script>
+        function provinces() {
+          if (document.getElementById("check").checked){
+            document.getElementById("border").style.display="block";
+            document.getElementById("border2").style.display="block";
+            document.getElementById("province").style.display="block";
+            document.getElementById("province2").style.display="block";
+          }
+          else {
+            document.getElementById("province").style.display="";
+            document.getElementById("province2").style.display="";
+          }
+          borders();
+        }
+      </script>
+
+        <script>
+            function wrap() {
+              var active=document.getElementById("right").style.display=="none";
+              document.getElementById("left").style.marginLeft=50*(1-active)+"px";
+              document.getElementById("right").style.display=["block","none"][1-active];
+            }
+        </script>
+
+        <script>
+          function names(filename) {
+            var name=document.getElementById("label");
+            var name2=document.getElementById("label2");
+            if (name.src.match(filename)){
+              toggle("label");
+            }
+            else{
+              name.src=loc+filename+".png";
+              name2.src=loc+filename+".png";
+              name.style.display="block";
+              name2.style.display="block";
+            }
+          }
+        </script>
+
+        <script>
+          function save() {
+            var layers=["top","flat","color","wclimate","cclimate","border","province","grid","label"];
+            var wrap=document.getElementById("right").style.display=="block";
+            if (wrap){
+              var pic=document.getElementById("double");
+            }
+            else{
+              var pic=document.getElementById("single");
+            }
+            layers.forEach(function(i){
+              if (document.getElementById(i).style.display=="block"){
+                pic.getContext("2d").drawImage(document.getElementById(i),0,0);
+              }
+            })
+            if (wrap){
+              layers.forEach(function(i){
+                if (document.getElementById(i+"2").style.display=="block"){
+                  pic.getContext("2d").drawImage(document.getElementById(i),6000,0);
+                }
+              })
+            }
+            var image = document.createElement("a");
+            image.setAttribute("href", pic.toDataURL());
+            image.setAttribute("download","map.png");
+            image.click();
+            image.remove();
+          }
+        </script>
+
+  </head>
+
+  <body>
+
+<div style="float:left">
+  <h1>Vitubia Map Viewer</h1>
+  <audio id="bgm" loop src="../halloween/spowoky.mp3"></audio>
+  <p>Style:</p>
+    <button onclick="full()" style="margin-left: 50px">Height</button>
+    <button onclick="off()">Mono</button>
+    <button onclick="color()">Color</button>
+    <button onclick="climate1()">Warm Climate<input type="checkbox" id="wcheck" onclick="blind('w')" title="Colorblind Mode"></input></button>
+    <button onclick="climate2()">Cool Climate<input type="checkbox" id="ccheck" onclick="blind('c')" title="Colorblind Mode"></input></button>
+  <p>Toggles:</p>
+    <button onclick="borders()" style="margin-left: 50px">Borders<input type="checkbox" id="check" onclick="provinces()" title="Province Borders"></input></button>
+    <button onclick="toggle('grid')">Grid</button>
+    <button onclick="wrap()">Wrap</button>
+  <p>Labels</p>
+    <button onclick="names('labels')" style="margin-left: 50px">Threads</button>
+    <button onclick="names('nations')">Nations</button>
+  <p>Zoom:</p>
+    <input type="range" min="50" max="400" value="50" class="slider" id="zoomSlider" style="width: 90%; margin-left: 50px;"/>
+    <button id="plus" style="margin-left: 50px">+</button>
+    <button id="minus">-</button>
+    <button id="reset">Reset</button>
+  <p>Tools:</p>
+    <button onclick="save()" style="margin-left: 50px">Download</button>
+    <a href="layers.zip" download> <button>Download All</button></a>
+    <input id="dist" type="text" readonly="True" placeholder="mouseover for more info">
+    <button id="area">Area</button>
+    <button id="clear">Clear</button>
+</div>
+
+<img id="key" src="key.png" style="width:25%;float:left;margin-left:40px;margin-top:100px"/>
+<img id="legend" src="legend.png" style="width:25%;float:left;margin-left:40px;margin-top:100px"/>
+<img id="holiday" src="../halloween/tortureroom.jpg" style="float:right;margin-right:40px;margin-top:40px"/>
+
+  <script>
+    var curr=50;
+    var layers=["maps","top","flat","color","wclimate","cclimate","border","province","grid","label","top2","flat2","color2","wclimate2","cclimate2","border2","province2","grid2","label2"];
+    function update(){
+      layers.forEach(function(i){
+        document.getElementById(i).style.width=curr+"%";
+      })
+      document.getElementById("lines").getContext("2d").canvas.width=window.innerWidth*curr/100;
+      document.getElementById("lines").getContext("2d").canvas.height=window.innerWidth*curr/200;
+      document.getElementById("lines2").getContext("2d").canvas.width=window.innerWidth*curr/100;
+      document.getElementById("lines2").getContext("2d").canvas.height=window.innerWidth*curr/200;
+      document.getElementById("zoomSlider").value=curr;
+    }
+    document.getElementById("zoomSlider").addEventListener("input",function(e){
+      curr=parseInt(e.target.value);
+      update();
+    })
+    document.getElementById("plus").addEventListener("click",function(){
+      curr+=10;
+      update();
+    })
+    document.getElementById("minus").addEventListener("click",function(){
+      curr-=10;
+      update();
+    })
+    document.getElementById("reset").addEventListener("click",function(){
+      curr=50;
+      update();
+    })
+    window.addEventListener("resize",function(){
+      update();
+    })
+  </script>
+
+<div class="wrapper" id="maps" style="clear:both">
+  <br><br>
+  <canvas id="single" height="3000px" width="6000px" style="display:none"></canvas>
+  <canvas id="double" height="3000px" width="12000px" style="display:none"></canvas>
+  <div id="left" style="float:left;margin-left:50px">
+    <img class="z1" id="top" src="layers/base.png"/>
+    <img class="z2" id="flat" src="layers/flat.png"/>
+    <img class="z3" id="color" src="layers/colors.png"/>
+    <img class="z4" id="wclimate" src="layers/wclimate.png"/>
+    <img class="z5" id="cclimate" src="layers/cclimate.png"/>
+    <img class="z6" id="border" src="layers/borders.png"/>
+    <img class="z7" id="province" src="layers/provinces.png"/>
+    <img class="z8" id="grid" src="layers/grid.png"/>
+    <img class="z9" id="label" src="layers/labels.png"/>
+    <canvas class="z10" id="lines"></canvas>
+  </div>
+  <div id="right" style="float:right;display:none">
+    <img class="z1" id="top2" src="layers/base.png"/>
+    <img class="z2" id="flat2" src="layers/flat.png"/>
+    <img class="z3" id="color2" src="layers/colors.png"/>
+    <img class="z4" id="wclimate2" src="layers/wclimate.png"/>
+    <img class="z5" id="cclimate2" src="layers/cclimate.png"/>
+    <img class="z6" id="border2" src="layers/borders.png"/>
+    <img class="z7" id="province2" src="layers/provinces.png"/>
+    <img class="z8" id="grid2" src="layers/grid.png"/>
+    <img class="z9" id="label2" src="layers/labels.png"/>
+    <canvas class="z10" id="lines2"></canvas>
+  </div>
+</div>
+
+<script>
+loc="layers/";
+var prevX=500;
+var prevY=500;
+var origX=0;
+var origY=0;
+var dist=0;
+var area=0;
+var ctx=document.getElementById("lines").getContext("2d");
+var ctx2=document.getElementById("lines2").getContext("2d");
+ctx.canvas.width=window.innerWidth/2;
+ctx.canvas.height=window.innerWidth/4;
+ctx2.canvas.width=window.innerWidth/2;
+ctx2.canvas.height=window.innerWidth/4;
+document.getElementById("dist").title='To use the distance calculator, click anywhere on the map to see the longitude and latitude of that point. Clicking somewhere else will display the distance between those points, with subsequent clicks updating to show the distance of the path from one point to the next. Selecting the "Area" button will compute the area of the outlined region. To get an accurate area, you should place points down either clockwise or anticlockwise all along the border of the region. This means larger regions will require more points to get accurate results. Pressing the "Clear" button resets the tool.';
+function waypoint(e) {
+  var rect=e.target.getBoundingClientRect();
+  var x=(e.clientX-rect.left)/(rect.right-rect.left)*2*Math.PI-Math.PI;
+  var y=(e.clientY-rect.top)/(rect.top-rect.bottom)*Math.PI+Math.PI/2;
+  if (prevX<500){
+    dist+=2*Math.asin(Math.sqrt((Math.sin((prevY-y)/2))**2+Math.cos(prevY)*Math.cos(y)*(Math.sin((prevX-x)/2))**2));
+    area+=prevX*Math.cos(prevY)*y-x*Math.cos(y)*prevY;
+    document.getElementById("dist").placeholder=(dist*3959).toFixed(0)+" mi, "+(dist*6371).toFixed(0)+" km";
+  }
+  else{
+    origX=x;
+    origY=y;
+    document.getElementById("dist").placeholder=((e.clientY-rect.top)/(rect.top-rect.bottom)*180+90).toFixed(2)+"\xb0 lat, "+((e.clientX-rect.left)/(rect.right-rect.left)*360-180).toFixed(2)+"\xb0 lon";
+  }
+  prevX=x;
+  prevY=y;
+  ctx.fillRect(e.clientX-rect.left,e.clientY-rect.top,2,2);
+  ctx2.fillRect(e.clientX-rect.left,e.clientY-rect.top,2,2);
+}
+document.getElementById("left").addEventListener("click",function(e){
+  waypoint(e);
+})
+document.getElementById("right").addEventListener("click",function(e){
+  waypoint(e);
+})
+document.getElementById("clear").addEventListener("click",function(){
+  prevX=500;
+  prevY=500;
+  origX=0;
+  origY=0;
+  dist=0;
+  area=0;
+  document.getElementById("dist").placeholder="mouseover for more info";
+  ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
+  ctx2.clearRect(0,0,ctx2.canvas.width,ctx2.canvas.height);
+})
+document.getElementById("area").addEventListener("click",function(){
+  var area2=Math.abs(area+prevX*Math.cos(prevY)*origY-origX*Math.cos(origY)*prevY)/2;
+  document.getElementById("dist").placeholder=(area2*3959**2).toFixed(0)+" mi2, "+(area2*6371**2).toFixed(0)+" km2";
+})
+var date=new Date();
+if (date.getMonth()==9 && date.getDate()==31){
+  var octart=["arisu","boomei","holodeath","nanora","tortureroom"];
+  var octsong=["halloween","myth","night","nyan","spowoky"];
+  document.getElementById("dist").placeholder="BOO!";
+  document.body.style.backgroundColor="orange";
+  document.getElementById("holiday").src="../halloween/"+octart[Math.floor(Math.random()*5)]+".jpg";
+  document.getElementById("holiday").style.width="20%";
+  document.getElementById("holiday").style.display="block";
+  var play=function(){
+    document.removeEventListener("mousedown",play,false);
+    document.getElementById("bgm").src="../halloween/"+octsong[Math.floor(Math.random()*5)]+".mp3";
+    document.getElementById("bgm").play();
+  }
+  document.addEventListener("mousedown",play,false);
+}
+if (date.getMonth()==11 && date.getDate()==25){
+  var decart=["alice.jpg","eggnog.png","kfp.png","spin.gif","tree.png"];
+  var decsong=["ame","nyan","padoru","riri","uto"];
+  document.getElementById("dist").placeholder="HO HO HO!"
+  document.body.style.backgroundImage="url('../christmas/snow.gif')";
+  document.getElementById("holiday").src="../christmas/"+decart[Math.floor(Math.random()*5)];
+  document.getElementById("holiday").style.width="15%";
+  document.getElementById("holiday").style.display="block";
+  var play=function(){
+    document.removeEventListener("mousedown",play,false);
+    document.getElementById("bgm").src="../christmas/"+decsong[Math.floor(Math.random()*5)]+".mp3";
+    document.getElementById("bgm").play();
+  }
+  document.addEventListener("mousedown",play,false);
+}
+if (date.getMonth()==0 && date.getDate()==19){
+  document.getElementById("dist").placeholder="Happy birthday, /vtwbg/!";
+  document.body.style.backgroundSize="cover";
+  document.body.style.backgroundImage="url('../birthday/balloons.gif')";
+  document.getElementById("holiday").src="../birthday/anniversary.png";
+  document.getElementById("holiday").style.width="35%";
+  document.getElementById("holiday").style.display="block";
+}
+if (date.getMonth()==1 && date.getDate()==14){
+  var layers=["top","blank","flat","color","climate","border","province","grid","label"];
+  var files=["base","land","flat","colors","climate","borders","provinces","grid","labels"];
+  var febart=["angel","astrogirl","fae","lumi","mori","redacted","sus","taka","tower","turkey"];
+  var febsong=["aqua","choco","chuchu","haato","kiara","letter","oshi","turing"];
+  document.getElementById("dist").placeholder="daisuki <3";
+  document.body.style.backgroundColor="pink";
+  document.getElementById("holiday").src="../valentine/"+febart[Math.floor(Math.random()*10)]+".png";
+  document.getElementById("holiday").style.width="14%";
+  document.getElementById("holiday").style.display="block";
+  var play=function(){
+    document.removeEventListener("mousedown",play,false);
+    document.getElementById("bgm").src="../valentine/"+febsong[Math.floor(Math.random()*8)]+".mp3";
+    document.getElementById("bgm").play();
+  }
+  document.addEventListener("mousedown",play,false);
+  loc="../valentine/layers/";
+  for (let i=0; i<10; i++){
+    document.getElementById(layers[i]).src=loc+files[i]+".png";
+    document.getElementById(layers[i]+"2").src=loc+files[i]+".png";
+  }
+}
+if (date.getMonth()==3 && date.getDate()==1){
+  var layers=["top","flat","color","border","province","grid","label"];
+  var files=["base","flat","colors","borders","provinces","grid","labels"];
+  document.getElementById("dist").placeholder=":^)";
+  loc="../fools/";
+  for (let i=0; i<7; i++){
+    document.getElementById(layers[i]).src=loc+files[i]+".png";
+    document.getElementById(layers[i]+"2").src=loc+files[i]+".png";
+  }
+}
+</script>
+  </body>
+</html>

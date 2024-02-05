@@ -1,0 +1,320 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+
+    <title>Viti Map Viewer</title>
+    <link rel="icon" href="../vtwbgicon.png">
+
+    <style>
+      body {
+        font-size: 15px;
+        background-color: lightgray;
+      }
+
+      h1 {
+        font-size: 30px;
+        margin-left: 50px;
+        margin-bottom: 10px;
+      }
+
+      img {
+        width: 50%;
+        display: none;
+        position:absolute;
+      }
+
+      p {
+        margin-top: .5em;
+        margin-bottom: .5em;
+        margin-left: 50px;
+      }
+
+      .wrapper {
+        overflow-x: auto;
+        white-space: nowrap;
+        width: 50%;
+        font-size: 5px;
+      }
+
+    </style>
+
+    <script>
+     var style="top";
+      function swap(id) {
+        if (style!=id) {
+          document.getElementById(id).style.display="block";
+          document.getElementById(id+"2").style.display="block";
+          document.getElementById(style).style.display="";
+          document.getElementById(style+"2").style.display="";
+          document.getElementById("key").style.display="block".repeat(id=="climate");
+          document.getElementById("legend").style.display="block".repeat(id=="top");
+          style=id;
+        }
+      }
+
+      function toggle(id) {
+        var active=document.getElementById(id).style.display!="block";
+        document.getElementById(id).style.display="block".repeat(active);
+        document.getElementById(id+"2").style.display="block".repeat(active);
+      }
+
+      function wrap() {
+        var active=document.getElementById("map2").style.display=="none";
+        document.getElementById("map").style.marginLeft=50*(1-active)+"px";
+        document.getElementById("map2").style.display=["block","none"][1-active];
+      }
+
+      function save() {
+        var layers=["water","top","flat","color","climate","border","grid","label"];
+        var wrap=document.getElementById("map2").style.display=="block";
+        if (wrap){
+          var pic=document.getElementById("double");
+        }
+        else{
+          var pic=document.getElementById("single");
+        }
+        layers.forEach(function(i){
+          if (document.getElementById(i).style.display=="block"){
+            pic.getContext("2d").drawImage(document.getElementById(i),0,0);
+          }
+        })
+        if (wrap){
+          layers.forEach(function(i){
+            if (document.getElementById(i+"2").style.display=="block"){
+              pic.getContext("2d").drawImage(document.getElementById(i),4096,0);
+            }
+          })
+        }
+        var image = document.createElement("a");
+        image.setAttribute("href", pic.toDataURL());
+        image.setAttribute("download","map.png");
+        image.click();
+        image.remove();
+      }
+    </script>
+
+  </head>
+
+  <body>
+
+    <div style="float:left">
+      <h1>Viti Map Viewer</h1>
+      <audio id="bgm" loop src="../halloween/spowoky.mp3"></audio>
+      <p>Style:</p>
+        <button onclick="swap('top')" style="margin-left: 50px">Height</button>
+        <button onclick="swap('flat')">Mono</button>
+        <button onclick="swap('color')">Color</button>
+        <button onclick="swap('climate')">Biomes</button>
+      <p>Toggles:</p>
+        <button onclick="toggle('border')" style="margin-left: 50px">Borders</button>
+        <button onclick="toggle('label')">Labels</button>
+        <button onclick="toggle('grid')">Grid</button>
+        <button onclick="wrap()">Wrap</button>
+      <p>Zoom:</p>
+        <input type="range" min="50" max="400" value="50" class="slider" id="zoomSlider" style="width: 90%; margin-left: 50px;"/>
+        <button id="plus" style="margin-left: 50px">+</button>
+        <button id="minus">-</button>
+        <button id="reset">Reset</button>
+      <p>Tools:</p>
+        <button onclick="save()" style="margin-left: 50px">Download</button>
+        <a href="layers.zip" download> <button>Download All</button></a>
+        <input id="dist" type="text" readonly="True" placeholder="mouseover for more info">
+        <button id="area">Area</button>
+        <button id="clear">Clear</button>
+    </div>
+
+    <img id="key" src="key.png" style="width:25%;float:left;margin-left:40px;margin-top:100px;position:relative"/>
+    <img id="legend" src="legend.png" style="width:25%;float:left;margin-left:40px;margin-top:100px;position:relative;display:block"/>
+    <img id="holiday" src="../halloween/tortureroom.jpg" style="float:right;margin-right:40px;margin-top:40px;position:relative"/>
+
+    <script>
+      var curr=50;
+      var layers=["viewer","water","top","flat","color","climate","border","grid","label","water2","top2","flat2","color2","climate2","border2","grid2","label2"];
+      function update(){
+        layers.forEach(function(i){
+          document.getElementById(i).style.width=curr+"%";
+        })
+        document.getElementById("lines").getContext("2d").canvas.width=window.innerWidth*curr/100;
+        document.getElementById("lines").getContext("2d").canvas.height=window.innerWidth*curr/200;
+        document.getElementById("lines2").getContext("2d").canvas.width=window.innerWidth*curr/100;
+        document.getElementById("lines2").getContext("2d").canvas.height=window.innerWidth*curr/200;
+        document.getElementById("zoomSlider").value=curr;
+      }
+      document.getElementById("zoomSlider").addEventListener("input",function(e){
+        curr=parseInt(e.target.value);
+        update();
+      })
+      document.getElementById("plus").addEventListener("click",function(){
+        curr+=10;
+        update();
+      })
+      document.getElementById("minus").addEventListener("click",function(){
+        curr-=10;
+        update();
+      })
+      document.getElementById("reset").addEventListener("click",function(){
+        curr=50;
+        update();
+      })
+      window.addEventListener("resize",function(){
+        update();
+      })
+    </script>
+
+    <div class="wrapper" id="viewer" style="clear:both">
+      <br><br>
+      <canvas id="single" height="2048px" width="4096px" style="display:none"></canvas>
+      <canvas id="double" height="2048px" width="8192px" style="display:none"></canvas>
+      <div id="map" style="float:left;margin-left:50px">
+        <img id="water" src="layers/bg.png" style="display:block"/>
+        <img id="top" src="layers/height.png" style="display:block"/>
+        <img id="flat" src="layers/flat.png"/>
+        <img id="color" src="layers/colors.png"/>
+        <img id="climate" src="layers/biome.png"/>
+        <img id="border" src="layers/borders.png"/>
+        <img id="grid" src="layers/grid.png"/>
+        <img id="label" src="layers/labels.png"/>
+        <canvas id="lines" style="position:absolute"></canvas>
+      </div>
+      <div id="map2" style="float:right;display:none">
+        <img id="water2" src="layers/bg.png" style="display:block"/>
+        <img id="top2" src="layers/height.png" style="display:block"/>
+        <img id="flat2" src="layers/flat.png"/>
+        <img id="color2" src="layers/colors.png"/>
+        <img id="climate2" src="layers/biome.png"/>
+        <img id="border2" src="layers/borders.png"/>
+        <img id="grid2" src="layers/grid.png"/>
+        <img id="label2" src="layers/labels.png"/>
+        <canvas id="lines2" style="position:absolute"></canvas>
+      </div>
+    </div>
+
+    <script>
+      loc="layers/";
+      var prevX=500;
+      var prevY=500;
+      var origX=0;
+      var origY=0;
+      var dist=0;
+      var area=0;
+      var ctx=document.getElementById("lines").getContext("2d");
+      var ctx2=document.getElementById("lines2").getContext("2d");
+      ctx.canvas.width=window.innerWidth/2;
+      ctx.canvas.height=window.innerWidth/4;
+      ctx2.canvas.width=window.innerWidth/2;
+      ctx2.canvas.height=window.innerWidth/4;
+      document.getElementById("dist").title='To use the distance calculator, click anywhere on the map to see the longitude and latitude of that point. Clicking somewhere else will display the distance between those points, with subsequent clicks updating to show the distance of the path from one point to the next. Selecting the "Area" button will compute the area of the outlined region. To get an accurate area, you should place points down either clockwise or anticlockwise all along the border of the region. This means larger regions will require more points to get accurate results. Pressing the "Clear" button resets the tool.';
+      function waypoint(e) {
+        var rect=e.target.getBoundingClientRect();
+        var x=(e.clientX-rect.left)/(rect.right-rect.left)*2*Math.PI-Math.PI;
+        var y=(e.clientY-rect.top)/(rect.top-rect.bottom)*Math.PI+Math.PI/2;
+        if (prevX<500){
+          dist+=2*Math.asin(Math.sqrt((Math.sin((prevY-y)/2))**2+Math.cos(prevY)*Math.cos(y)*(Math.sin((prevX-x)/2))**2));
+          area+=prevX*Math.cos(prevY)*y-x*Math.cos(y)*prevY;
+          document.getElementById("dist").placeholder=(dist*3959).toFixed(0)+" mi, "+(dist*6371).toFixed(0)+" km";
+        }
+        else{
+          origX=x;
+          origY=y;
+          document.getElementById("dist").placeholder=((e.clientY-rect.top)/(rect.top-rect.bottom)*180+90).toFixed(2)+"\xb0 lat, "+((e.clientX-rect.left)/(rect.right-rect.left)*360-180).toFixed(2)+"\xb0 lon";
+        }
+        prevX=x;
+        prevY=y;
+        ctx.fillRect(e.clientX-rect.left,e.clientY-rect.top,2,2);
+        ctx2.fillRect(e.clientX-rect.left,e.clientY-rect.top,2,2);
+      }
+      document.getElementById("map").addEventListener("click",function(e){
+        waypoint(e);
+      })
+      document.getElementById("map2").addEventListener("click",function(e){
+        waypoint(e);
+      })
+      document.getElementById("clear").addEventListener("click",function(){
+        prevX=500;
+        prevY=500;
+        origX=0;
+        origY=0;
+        dist=0;
+        area=0;
+        document.getElementById("dist").placeholder="mouseover for more info";
+        ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
+        ctx2.clearRect(0,0,ctx2.canvas.width,ctx2.canvas.height);
+      })
+      document.getElementById("area").addEventListener("click",function(){
+        var area2=Math.abs(area+prevX*Math.cos(prevY)*origY-origX*Math.cos(origY)*prevY)/2;
+        document.getElementById("dist").placeholder=(area2*3959**2).toFixed(0)+" mi2, "+(area2*6371**2).toFixed(0)+" km2";
+      })
+      var date=new Date();
+      if (date.getMonth()==9 && date.getDate()==31){
+        var octart=["arisu","boomei","holodeath","nanora","tortureroom"];
+        var octsong=["halloween","myth","night","nyan","spowoky"];
+        document.getElementById("dist").placeholder="BOO!";
+        document.body.style.backgroundColor="orange";
+        document.getElementById("holiday").src="../halloween/"+octart[Math.floor(Math.random()*5)]+".jpg";
+        document.getElementById("holiday").style.width="20%";
+        document.getElementById("holiday").style.display="block";
+        var play=function(){
+          document.removeEventListener("mousedown",play,false);
+          document.getElementById("bgm").src="../halloween/"+octsong[Math.floor(Math.random()*5)]+".mp3";
+          document.getElementById("bgm").play();
+        }
+        document.addEventListener("mousedown",play,false);
+      }
+      if (date.getMonth()==11 && date.getDate()==25){
+        var decart=["alice.jpg","eggnog.png","kfp.png","spin.gif","tree.png"];
+        var decsong=["ame","nyan","padoru","riri","uto"];
+        document.getElementById("dist").placeholder="HO HO HO!"
+        document.body.style.backgroundImage="url('../christmas/snow.gif')";
+        document.getElementById("holiday").src="../christmas/"+decart[Math.floor(Math.random()*5)];
+        document.getElementById("holiday").style.width="15%";
+        document.getElementById("holiday").style.display="block";
+        var play=function(){
+          document.removeEventListener("mousedown",play,false);
+          document.getElementById("bgm").src="../christmas/"+decsong[Math.floor(Math.random()*5)]+".mp3";
+          document.getElementById("bgm").play();
+        }
+        document.addEventListener("mousedown",play,false);
+      }
+      if (date.getMonth()==0 && date.getDate()==19){
+        document.getElementById("dist").placeholder="Happy birthday, /vtwbg/!";
+        document.body.style.backgroundSize="cover";
+        document.body.style.backgroundImage="url('../birthday/balloons.gif')";
+        document.getElementById("holiday").src="../birthday/anniversary.png";
+        document.getElementById("holiday").style.width="35%";
+        document.getElementById("holiday").style.display="block";
+      }
+      if (date.getMonth()==1 && date.getDate()==14){
+        var febart=["angel","astrogirl","fae","lumi","mori","redacted","sus","taka","tower","turkey"];
+        var febsong=["aqua","choco","chuchu","haato","kiara","letter","oshi","turing"];
+        document.getElementById("dist").placeholder="daisuki <3";
+        document.body.style.backgroundColor="pink";
+        document.getElementById("holiday").src="../valentine/"+febart[Math.floor(Math.random()*10)]+".png";
+        document.getElementById("holiday").style.width="14%";
+        document.getElementById("holiday").style.display="block";
+        var play=function(){
+          document.getElementById("water").style.display="block";
+          document.getElementById("top").src="layers/height.png";
+          document.removeEventListener("mousedown",play,false);
+          document.getElementById("bgm").src="../valentine/"+febsong[Math.floor(Math.random()*8)]+".mp3";
+          document.getElementById("bgm").play();
+        }
+        document.addEventListener("mousedown",play,false);
+        document.getElementById("water").style.display="";
+        document.getElementById("top").src="../valentine/layers/viti.png";
+      }
+      if (date.getMonth()==3 && date.getDate()==1){
+        var layers=["top","flat","color","climate","border","grid","label"];
+        var files=["base","flat","colors","wclimate","borders","grid","labels"];
+        document.getElementById("dist").placeholder=":^)";
+        document.getElementById("key").src="../vitubia/key.png";
+        document.getElementById("legend").src="../vitubia/legend.png";
+        loc="../vitubia/layers/";
+        for (let i=0; i<7; i++){
+          document.getElementById(layers[i]).src=loc+files[i]+".png";
+          document.getElementById(layers[i]+"2").src=loc+files[i]+".png";
+        }
+      }
+    </script>
+  </body>
+</html>
