@@ -432,13 +432,13 @@ if (date.getMonth()==0 && date.getDate()==19){
   document.getElementById("holiday").style.display="block";
 }
 if (date.getMonth()==1 && date.getDate()==14){
-  var layers=["top","blank","flat","color","climate","border","province","grid","label"];
-  var files=["base","land","flat","colors","climate","borders","provinces","grid","labels"];
-  var febart=["angel","astrogirl","fae","lumi","mori","redacted","sus","taka","tower","turkey"];
+  var layers=["top","flat","color","wclimate","cclimate","border","province","grid","label"];
+  var files=["base","flat","colors","wclimate","cclimate","borders","provinces","grid","labels"];
+  var febart=["angel","astrogirl","lumi","meat","migo","mori","taka","tower"];
   var febsong=["aqua","choco","chuchu","haato","kiara","letter","oshi","turing"];
   document.getElementById("dist").placeholder="daisuki <3";
   document.body.style.backgroundColor="pink";
-  document.getElementById("holiday").src="../valentine/"+febart[Math.floor(Math.random()*10)]+".png";
+  document.getElementById("holiday").src="../valentine/"+febart[Math.floor(Math.random()*8)]+".png";
   document.getElementById("holiday").style.width="14%";
   document.getElementById("holiday").style.display="block";
   var play=function(){
@@ -448,7 +448,7 @@ if (date.getMonth()==1 && date.getDate()==14){
   }
   document.addEventListener("mousedown",play,false);
   loc="../valentine/layers/";
-  for (let i=0; i<10; i++){
+  for (let i=0; i<9; i++){
     document.getElementById(layers[i]).src=loc+files[i]+".png";
     document.getElementById(layers[i]+"2").src=loc+files[i]+".png";
   }
