@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+
+    <title>Viti Biome Map Demo</title>
+    <link rel="icon" href="../vtwbgicon.png">
+
+    <style>
+      body {
+        font-size: 15px;
+        background-color: lightgray;
+      }
+
+      h1 {
+        font-size: 30px;
+        margin-left: 50px;
+        margin-bottom: 10px;
+      }
+
+      img {
+        width: 50%;
+        position: absolute;
+        display: none;
+      }
+
+      p {
+        margin-top: 1em;
+        margin-bottom: 1em;
+        margin-left: 1em;
+        margin-right: 1em;
+      }
+
+    </style>
+
+  </head>
+
+  <body>
+
+<div style="float:top">
+  <h1>Viti Biome Map Demo</h1>
+</div>
+
+<div id="image" style="float:left;margin-left:50px">
+  <img id="water" src="water.png" style="display:block"/>
+  <img id="tempdec" src="tempdec.png"/>
+  <img id="temprain" src="temprain.png"/>
+  <img id="taiga" src="taiga.png"/>
+  <img id="grass" src="grass.png"/>
+  <img id="tropseas" src="tropseas.png"/>
+  <img id="wet" src="wet.png"/>
+  <img id="troprain" src="troprain.png"/>
+  <img id="glacier" src="glacier.png"/>
+  <img id="sava" src="sava.png"/>
+  <img id="tundra" src="tundra.png"/>
+  <img id="colddes" src="colddes.png"/>
+  <img id="hotdes" src="hotdes.png"/>
+  <img id="biomes" src="biomes.png" style="display:block" onload="draw()"/>
+</div>
+
+<div id="hidden" style="display:none">
+  <canvas id="drawn" width="4096" height="2048"/>
+</div>
+
+<script>
+  var active="biomes";
+  var dict={0:"biomes",41:"tempdec",64:"temprain",75:"taiga",200:"grass",161:"tropseas",11:"wet",125:"troprain",213:"glacier",177:"sava",150:"tundra",83:"colddes",251:"hotdes"};
+  var can=document.getElementById("drawn");
+  var ctx=can.getContext("2d",{willReadFrequently:true});
+  function draw(){
+    ctx.drawImage(document.getElementById("biomes"),0,0);
+    document.getElementById("biomes").onmousemove=function(e){
+      activate(e);
+    };
+  }
+  function activate(e){
+    var rect=e.target.getBoundingClientRect();
+    var x=(e.clientX-rect.left)/window.innerWidth*8192;
+    var y=(e.clientY-rect.top)/window.innerWidth*8192;
+    var red=ctx.getImageData(x,y,1,1).data[0];
+    if(dict[red]!=active){
+      document.getElementById(active).style.display="none";
+      document.getElementById(dict[red]).style.display="block";
+      document.getElementById(dict[red]).onmousemove=function(e){
+        activate(e);
+      };
+      active=dict[red];
+    }
+  }
+</script>
+
+  </body>
+</html>
