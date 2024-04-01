@@ -304,16 +304,26 @@
         document.getElementById("top").src="../valentine/layers/viti.png";
       }
       if (date.getMonth()==3 && date.getDate()==1){
-        var layers=["top","flat","color","climate","border","grid","label"];
-        var files=["base","flat","colors","wclimate","borders","grid","labels"];
-        document.getElementById("dist").placeholder=":^)";
-        document.getElementById("key").src="../vitubia/key.png";
-        document.getElementById("legend").src="../vitubia/legend.png";
-        loc="../vitubia/layers/";
-        for (let i=0; i<7; i++){
-          document.getElementById(layers[i]).src=loc+files[i]+".png";
-          document.getElementById(layers[i]+"2").src=loc+files[i]+".png";
+        var layers=["water","top","flat","color","climate","border","grid","label"];
+        var files=["bg","height","flat","colors","biome","borders","grid","labels"];
+        loc="../fools/holox/";
+        var aprart=["chloe","iroha","koyori","laplus","lui"];
+        var aprsong=["labyrinth","repaint","solidarity"];
+        document.getElementById("holiday").src="../fools/holox/"+aprart[Math.floor(Math.random()*5)]+".png";
+        document.getElementById("holiday").style.width="13%";
+        var play=function(){
+          document.getElementById("holiday").style.display="block";
+          document.getElementById("dist").placeholder="Katsumoku seyo!";
+          document.body.style.backgroundColor="purple";
+          document.removeEventListener("mousedown",play,false);
+          document.getElementById("bgm").src="../fools/holox/"+aprsong[Math.floor(Math.random()*3)]+".mp3";
+          document.getElementById("bgm").play();
+          for (let i=0; i<8; i++){
+            document.getElementById(layers[i]).src=loc+files[i]+".png";
+            document.getElementById(layers[i]+"2").src=loc+files[i]+".png";
+          }
         }
+        document.addEventListener("mousedown",play,false);
       }
     </script>
   </body>
