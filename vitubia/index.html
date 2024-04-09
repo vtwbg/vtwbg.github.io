@@ -277,6 +277,7 @@
     var curr=50;
     var layers=["maps","top","flat","color","wclimate","cclimate","border","province","grid","label","top2","flat2","color2","wclimate2","cclimate2","border2","province2","grid2","label2"];
     function update(){
+      empty();
       layers.forEach(function(i){
         document.getElementById(i).style.width=curr+"%";
       })
@@ -352,7 +353,7 @@ ctx.canvas.height=window.innerWidth/4;
 ctx2.canvas.width=window.innerWidth/2;
 ctx2.canvas.height=window.innerWidth/4;
 document.getElementById("dist").title='To use the distance calculator, click anywhere on the map to see the longitude and latitude of that point. Clicking somewhere else will display the distance between those points, with subsequent clicks updating to show the distance of the path from one point to the next. Selecting the "Area" button will compute the area of the outlined region. To get an accurate area, you should place points down either clockwise or anticlockwise all along the border of the region. This means larger regions will require more points to get accurate results. Pressing the "Clear" button resets the tool.';
-function waypoint(e) {
+function waypoint(e){
   var rect=e.target.getBoundingClientRect();
   var x=(e.clientX-rect.left)/(rect.right-rect.left)*2*Math.PI-Math.PI;
   var y=(e.clientY-rect.top)/(rect.top-rect.bottom)*Math.PI+Math.PI/2;
@@ -371,13 +372,7 @@ function waypoint(e) {
   ctx.fillRect(e.clientX-rect.left,e.clientY-rect.top,2,2);
   ctx2.fillRect(e.clientX-rect.left,e.clientY-rect.top,2,2);
 }
-document.getElementById("left").addEventListener("click",function(e){
-  waypoint(e);
-})
-document.getElementById("right").addEventListener("click",function(e){
-  waypoint(e);
-})
-document.getElementById("clear").addEventListener("click",function(){
+function empty(){
   prevX=500;
   prevY=500;
   origX=0;
@@ -387,6 +382,15 @@ document.getElementById("clear").addEventListener("click",function(){
   document.getElementById("dist").placeholder="mouseover for more info";
   ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
   ctx2.clearRect(0,0,ctx2.canvas.width,ctx2.canvas.height);
+}
+document.getElementById("left").addEventListener("click",function(e){
+  waypoint(e);
+})
+document.getElementById("right").addEventListener("click",function(e){
+  waypoint(e);
+})
+document.getElementById("clear").addEventListener("click",function(){
+  empty();
 })
 document.getElementById("area").addEventListener("click",function(){
   var area2=Math.abs(area+prevX*Math.cos(prevY)*origY-origX*Math.cos(origY)*prevY)/2;
