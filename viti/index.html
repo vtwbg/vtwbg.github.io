@@ -294,16 +294,16 @@
       })
       var date=new Date();
       if (date.getMonth()==9 && date.getDate()==31){
-        var octart=["arisu","boomei","holodeath","nanora","tortureroom"];
-        var octsong=["halloween","myth","night","nyan","spowoky"];
+        var octart=["ghost.jpg","koyote.jpeg","pumpkin.png","reaper.jpg","witch.jpg","zombie.png"];
+        var octsong=["halloween","myth","night","nightmare","nyan","spowoky"];
         document.getElementById("dist").placeholder="BOO!";
         document.body.style.backgroundColor="orange";
-        document.getElementById("holiday").src="../halloween/"+octart[Math.floor(Math.random()*5)]+".jpg";
-        document.getElementById("holiday").style.width="20%";
+        document.getElementById("holiday").src="../halloween/"+octart[Math.floor(Math.random()*6)];
+        document.getElementById("holiday").style.width="14%";
         document.getElementById("holiday").style.display="block";
         var play=function(){
           document.removeEventListener("mousedown",play,false);
-          document.getElementById("bgm").src="../halloween/"+octsong[Math.floor(Math.random()*5)]+".mp3";
+          document.getElementById("bgm").src="../halloween/"+octsong[Math.floor(Math.random()*6)]+".mp3";
           document.getElementById("bgm").play();
         }
         document.addEventListener("mousedown",play,false);
